@@ -28,7 +28,68 @@
         <button value="2">magique 5</button>
     </div>
 
-    <script type="text/javascript" src="./donjon.js">
+    <script>
+        const TURN_INSTRC = document.getElementById("turn-instructions");
+const ATTACK_BTNS = document.getElementById('attack-btn');
+const DEFENSE_BTNS = document.getElementById("defense-btn");
+const bossH = document.getElementById('bossHealth')
+const playerH = document.getElementById('playerHealth');
+
+alert('VOUS AVEZ RENCONTRÉ LE DONJON MASTER!!!! Préparez - vous à vous battre!');
+
+
+//Game Logic
+const BOSS_ATTAQUE = 6;
+let attackTable = [2, 5, 10];
+let defenseTable = [1, 3, 5];
+let playerHealth = 15;
+let bossHealth = 10;
+
+//display options
+TURN_INSTRC.innerHTML = "choisir une Attaque!!!";
+bossH.innerHTML = `Boss Health: ${bossHealth}`;
+playerH.innerHTML = `Player Health: ${playerHealth}`;
+
+
+ATTACK_BTNS.addEventListener('click', e => {
+    let btn = e.target;
+    attackOption = btn.innerHTML;
+    bossHealth -= attackTable[+btn.value];
+    bossH.innerHTML = `Boss Health: ${bossHealth}`;
+    TURN_INSTRC.innerHTML = "choisir une Defense!!!";
+    ATTACK_BTNS.style.display = "none";
+    DEFENSE_BTNS.style.display = "";
+
+      if(bossHealth <= 0 || playerHealth <= 0){
+    if(playerHealth !=0){
+        alert('You Won!! GAME OVER!!')
+    }
+    else{
+        alert('You LOST :(  ~GAME OVER~')
+    }
+}
+})
+
+DEFENSE_BTNS.addEventListener('click', e => {
+    let btn = e.target;
+    console.log(btn.value);
+
+    TURN_INSTRC.innerHTML = "choisir une Attaque!!!";
+    ATTACK_BTNS.style.display = "";
+    DEFENSE_BTNS.style.display = "none";
+    playerHealth -= BOSS_ATTAQUE - defenseTable[+btn.value];
+    playerH.innerHTML = `Player Health: ${playerHealth}`;
+    alert(`Boss Attack!!! ${BOSS_ATTAQUE - defenseTable[+btn.value]}`);
+
+    if(bossHealth <= 0 || playerHealth <= 0){
+    if(playerHealth !=0){
+        alert('You Won!! GAME OVER!!')
+    }
+    else{
+        alert('You LOST :(  ~GAME OVER~')
+    }
+}
+})
     </script>
     
 </body>
